@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="box">
+        <h2>Sign Up</h2>
+        <form action="{% url 'signup' %}" method="post" name='signup'>
+            {% csrf_token %}
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <br>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <br>
+            <div>
+                <label for="password1">Confirm Password:</label>
+                <input type="password" name="password1" id="password1">
+            </div>
+            <br>    
+            <input type="submit" value="Register">
+        </form>
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    </div>
+
+<script>
+    var form = document.forms['signup'];
+    form.onsubmit = (e) => {
+        // e.preventDefault();
+        var username = form['username'].value,
+            password = form['password'].value,
+            password1 = form['password1'].value,
+            value = false;
+        if(password !== password1) {
+            alert('Password is not correct');
+        }else if(username == "" || password == "") {
+            alert('Please enter the full credentials');
+        }else {
+            value = true;
+        }
+        return value;
+    };
+</script>
+{% endblock %}

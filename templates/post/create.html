@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <h2>Create Post</h2>
+    <div class="box">
+        <form action="{% url 'create' %}" method="post" name='create'>
+            {% csrf_token %}
+            <div>
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title">
+            </div><br>
+            <div>
+                <label for="body">Body</label>
+                <textarea name="body" id="body" cols="30" rows="10"></textarea>
+            </div><br>
+            <input type="submit" value="Create Post">
+        </form>
+    </div>
+
+<script>
+    var create = document.forms['create'];
+    create.onsubmit = () => {
+        var title = create['title'].value,
+            body = create['body'].value,
+            value = false;
+        if(title !== "" && body !== ""){
+            value = true;
+        }else {
+            alert('Please enter the full post info');
+        }
+        return value;
+    };
+</script>
+{% endblock %}

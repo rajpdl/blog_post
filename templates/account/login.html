@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="box">
+        <h2>Login</h2>
+        <form action="" method="post" name='login'>
+            {% csrf_token %}
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <br>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <br>
+            <input type="submit" value="Login">
+        </form>
+        <a href="">forget password?</a><br>
+        <a href="{% url 'signup' %}">Sign Up</a>
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    </div>
+
+<script>
+    var login = document.forms['login'];
+    login.onsubmit = () => {
+        var username = login['username'].value,
+            password = login['password'].value,
+            value = false;
+        if(username == "" || password == "") {
+            alert('Please enter the full credentials');
+        }else {
+            value = true;
+        }
+        return value;
+    };
+</script>
+{% endblock %}

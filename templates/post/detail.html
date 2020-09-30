@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Detail Page</h2>
+    {% for post in post %}
+        
+        <form action="{% url 'update' %}" method="post" name='update'>
+            {% csrf_token %}
+            <input type="hidden" name="id" value='{{post.id}}' id='id'>
+            <div>
+                <label for="title">Title:</label>
+                <input type="text" name='title' value='{{post.title}}'>
+            </div>
+            <div>
+                <label for="body">Body:</label>
+                <textarea name="body" id="body" cols="30" rows="10">{{post.body}}</textarea>
+            </div>
+            <div>
+                <label for="Authors">Authors:</label>
+                <select name="author" id="author" multiple>
+                    {% for author in post.author_id.all %}
+                    <option value="{{author.id}}">{{author}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <a  href="{% url 'delete' id=post.id %}">Delete</a>
+            <input type="submit" value="Save">
+        </form>
+        
+    {% endfor %}
+<script>
+    var update = document.forms['update'];
+    update.onsubmit = () => {
+        var title = update['title'].value,
+            body = update['body'].value,
+            value = false;
+        if(title.length ==  0 || body.length == 0){
+            alert('Please enter the full information');
+        }else {
+            value = true;
+        }
+        
+        return value;
+    };
+    
+    
+</script>
+{% endblock %}

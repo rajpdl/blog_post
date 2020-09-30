@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="box">
+        {% if request.session.create %}
+            <a href="{% url 'create' %}">Create New Post</a>
+        {% endif %}
+        <h2>Post Page</h2>
+        {% for post in posts %}
+        <div class="card">
+            {% if request.session.create %}
+            <p><a href="{% url 'getbyid' id=post.id %}">{{post.title}}</a></p>
+            {% else %}
+            <p>{{post.title}}</p>
+            {% endif %}
+            <p>{{post.short}}</p>
+            {% for author in post.author_id.all %}
+                <span>Author is : {{author}}</span>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+    </div>
+<style>
+    .card {
+        border: 1px solid green;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        min-width:400px;
+        float: left;
+    }
+</style>
+{% endblock %}

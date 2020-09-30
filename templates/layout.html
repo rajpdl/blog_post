@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Application</title>
+</head>
+<body>
+    <ul>
+    {% if request.session.user %}
+        <li>Welcome {{request.session.user}}</li>
+        <li><a href="{% url 'post' %}">Post</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+        <li><a href="{% url 'post' %}">Post</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+    </ul>
+    {% block content %}
+    
+    {% endblock %}
+</body>
+</html>
